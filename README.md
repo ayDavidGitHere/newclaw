@@ -41,7 +41,7 @@ after changes in config file, restart the program `newclaw restart`.
 
 # CREATING NEXTCLOUD BOT 
 
-Run this on nextcloud installation  
+Run this on nextcloud your installation/server  
 ```cd /var/www/nextcloud```  
 
 List existing bots:  
