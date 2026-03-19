@@ -57,5 +57,5 @@ List bots again to get the `bot-id`:
 ```php occ talk:bot:list```  
 
 Add bot to a nextcloud room :  
-```php occ talk:bot:setup <bot-id> <conversation-token>```
+```php occ talk:bot:setup <bot-id> <conversation-token>```  
 `conversation-token` typically can be obtained from the last part of the URL when you open the nextcloud talk room in browser, e.g. if the URL is `https://my-nextcloud-domain.com/chat/abcdefg`, then the conversation token is `abcdefg`.
