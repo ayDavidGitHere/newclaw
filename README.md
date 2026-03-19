@@ -6,9 +6,9 @@
 
 ``` bash ./install.sh ```
 
-``` bash newclaw help ``` 
+``` newclaw help ``` 
 
-``` bash newclaw onboard ``` 
+``` newclaw onboard ``` 
 
 # ONBOARDING
 
