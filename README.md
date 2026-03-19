@@ -1,10 +1,14 @@
 # INSTALLATION
 
-``` git clone https://github.com/ayDavidGitHere/newclaw.git ```
+``` git clone https://github.com/ayDavidGitHere/newclaw.git ``` 
+
 ``` cd newclaw ``` 
+
 ``` bash ./install.sh ```
-``` bash newclaw help ```
-``` bash newclaw onboard ```
+
+``` bash newclaw help ``` 
+
+``` bash newclaw onboard ``` 
 
 # ONBOARDING
 
@@ -35,11 +39,11 @@ config file is located at `~/.newclaw/data/config.json`
 after changes in config file, restart the program `newclaw restart`.
 
 # CREATING NEXTCLOUD BOT 
-Run this on nextcloud installation
+Run this on nextcloud installation  
 
-```cd /var/www/nextcloud```
-```php occ talk:bot:list```
-```php occ talk:bot:install <agent-name> <40-or-more-char-webhook-secret> <my-webhook-domain.com>/<my-webhook-path> <description>```
-Example:
-```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://my-webhook-domain.com/nextcloud-talk "bot for newclaw agent"```
+```cd /var/www/nextcloud```  
+```php occ talk:bot:list```  
+```php occ talk:bot:install <agent-name> <40-or-more-char-webhook-secret> <my-webhook-domain.com>/<my-webhook-path> <description>```  
+Example:  
+```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://my-webhook-domain.com/nextcloud-talk "bot for newclaw agent"```  
 
