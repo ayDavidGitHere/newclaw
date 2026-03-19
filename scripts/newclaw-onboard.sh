@@ -79,9 +79,9 @@ create_config() {
   AI_NAME="${input:-$AI_NAME}"
 
   if [ "$AI_NAME" = "openclawcli" ]; then
-    echo -e "${RED}Be sure OpenClaw CLI is installed and configured on this machine${NC}"
+    echo -e "${YELLOW} Be sure OpenClaw CLI is installed and configured on this machine${NC}"
 
-    read -p "OpenClaw agent name: [$AI_OPENCLAW_CLI_AGENT_NAME]" input
+    read -p "OpenClaw agent name [$AI_OPENCLAW_CLI_AGENT_NAME]: " input
     AI_OPENCLAW_CLI_AGENT_NAME="${input:-$AI_OPENCLAW_CLI_AGENT_NAME}"
 
   else
@@ -121,7 +121,7 @@ create_config() {
         apiUrl: $aurl,
         apiKey: $akey,
         modelName: $amodel,
-        name: $aname
+        name: $aname,
         openclawCliAgentName: $aopenclawcliagentname
       }
     }'
