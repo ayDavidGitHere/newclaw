@@ -28,11 +28,12 @@ You can do this in NGINX.
 
 `AI NAME` availabe options are "openclawcli", "ollamacloud" and "openaicloud". 
 
-If you choose "openclawcli", you must have OpenClaw CLI installed and configured on the same machine, and also set the AI OPENCLAW_CLI_AGENT_NAME to the agent name you want to use for handling nextcloud talk messages.
+If you choose "openclawcli", you must have OpenClaw CLI installed and configured on the same machine.
+You must also set the AI OPENCLAW_CLI_AGENT_NAME.
 
-`AI OPENCLAW_CLI_AGENT_NAME` is usually "main", check "openclaw agents list" to confirm the agent name you want to use.
+`AI OPENCLAW_CLI_AGENT_NAME` is usually "main", check `openclaw agents list` to confirm the agent name you want to use.
 
-You can change these settings later by editing the config file directly or running "newclaw onboard" again.
+You can change any of these configs later by editing the config file directly or running `newclaw onboard` again.
 
 config file is located at `~/.newclaw/data/config.json`
 
