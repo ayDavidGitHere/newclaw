@@ -42,13 +42,13 @@ after changes in config file, restart the program `newclaw restart`.
 # CREATING NEXTCLOUD BOT 
 
 Run this on nextcloud installation  
-
 ```cd /var/www/nextcloud```  
+
 List existing bots:  
 ```php occ talk:bot:list```  
 
 Create bot and get the webhook secret:  
-```php occ talk:bot:install <agent-name> <40-or-more-char-webhook-secret> <my-webhook-domain.com>/<my-webhook-path> <description>```  
+```php occ talk:bot:install <bot-name> <40-or-more-char-webhook-secret> <my-webhook-domain.com>/<my-webhook-path> <description>```  
 
 Example:  
 ```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://my-webhook-domain.com/nextcloud-talk "bot for newclaw agent"```  
