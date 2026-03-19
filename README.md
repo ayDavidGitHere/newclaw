@@ -24,7 +24,7 @@ You can do this in NGINX.
 
 `Nextcloud PATH` is the path part of the webhook URL, e.g. /nextcloud-talk, so the full webhook URL (set when installing the bot in nextcloud server) would be <my-webhook-domain.com>/nextcloud-talk
 
-`AI URL, AI KEY, AI MODEL` are the API URL, key and model for the main AI provider you want to use. 
+`AI URL, AI KEY, AI MODEL` are the API URL, key and model for the main AI provider you want to use. You do not need this if you choose "openclawcli" as AI NAME
 
 `AI NAME` availabe options are "openclawcli", "ollamacloud" and "openaicloud". 
 
