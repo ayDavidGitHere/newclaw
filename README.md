@@ -40,17 +40,22 @@ config file is located at `~/.newclaw/data/config.json`
 after changes in config file, restart the program `newclaw restart`.
 
 # CREATING NEXTCLOUD BOT 
+
 Run this on nextcloud installation  
 
 ```cd /var/www/nextcloud```  
 List existing bots:  
 ```php occ talk:bot:list```  
+
 Create bot and get the webhook secret:  
 ```php occ talk:bot:install <agent-name> <40-or-more-char-webhook-secret> <my-webhook-domain.com>/<my-webhook-path> <description>```  
+
 Example:  
-```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://my-webhook-domain.com/nextcloud-talk "bot for newclaw agent"``` 
+```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://my-webhook-domain.com/nextcloud-talk "bot for newclaw agent"```  
+
 List bots again to get the `bot-id`:  
 ```php occ talk:bot:list```  
+
 Add bot to a nextcloud room :  
 ```php occ talk:bot:setup <bot-id> <conversation-token>```
 `conversation-token` typically can be obtained from the last part of the URL when you open the nextcloud talk room in browser, e.g. if the URL is `https://my-nextcloud-domain.com/chat/abcdefg`, then the conversation token is `abcdefg`.
