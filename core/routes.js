@@ -91,6 +91,14 @@ app.post(config.nextcloud_talk.webhookPath, async (req, res, next) => {
     await handleNexcloudTalkWebhook(req, res, next)
 });
 
+app.get("/health", (req, res) => {
+    res.json({ status: "ok" });
+});
+
+app.get("/", (req, res) => {
+    res.send("Nextcloud Newclaw Agent is running");
+});
+
 // ---- Start server ----
 let port = config.local_server && config.local_server.port 
     ? config.local_server.port
