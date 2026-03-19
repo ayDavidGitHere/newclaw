@@ -1,8 +1,5 @@
 #!/bin/bash
 
-
-cd ~/newclaw
-
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
