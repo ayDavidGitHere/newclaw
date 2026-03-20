@@ -197,5 +197,5 @@ echo -e "${GREEN}"
 echo "=================================="
 echo "    NEWCLAW ONBOARDING COMPLETE   "
 echo "=================================="
-echo -e "${NC}
+echo -e "${NC}"
 echo -e "${YELLOW} Remember to expose 127.0.0.1:${LOCAL_PORT}/${NC_PATH} to be reachable externally. Use a reverse proxy (NGINX, Caddy ...) ${NC}"
