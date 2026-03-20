@@ -75,8 +75,22 @@ create_config() {
   NC_PATH="${input:-$NC_PATH}"
 
   # Prompt for provider
-  read -p "AI provider name (openclawcli, ollamacloud, openaicloud) [$AI_NAME]: " input
-  AI_NAME="${input:-$AI_NAME}"
+  echo "Select AI provider (current: $AI_NAME):"
+
+  options=("openclawcli" "ollamacloud" "openaicloud")
+
+  select opt in "${options[@]}"; do
+    if [ -n "$opt" ]; then
+        AI_NAME="$opt"
+        break
+    elif [ -z "$REPLY" ]; then
+        # user just pressed ENTER → keep existing
+        echo "Keeping current: $AI_NAME"
+        break
+    else
+        echo "Invalid option"
+    fi
+  done
 
   if [ "$AI_NAME" = "openclawcli" ]; then
     echo -e "${YELLOW} Be sure OpenClaw CLI is installed and configured on this machine${NC}"
