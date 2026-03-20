@@ -10,10 +10,16 @@ BLUE="\033[0;34m"
 CYAN="\033[0;36m"
 NC="\033[0m"  # No Color
 
+# Resolve script directory (works from anywhere)
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 
+# Config file path
 CONFIG_FILE="$SCRIPT_DIR/../data/config.json"
+
+# Config variables (will be set in create_config)
+LOCAL_PORT=""
+NC_PATH=""
 
 # Create or edit config interactively
 create_config() {
@@ -167,7 +173,7 @@ prompt_restart() {
       echo "Restart script not found: $RESTART_SCRIPT"
     fi
   else
-    echo "Skipping server restart."
+    echo "Skipping server restart. You can call 'newclaw restart' to restart the server after onboarding."
   fi
 }
 
