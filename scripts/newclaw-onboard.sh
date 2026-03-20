@@ -17,7 +17,7 @@ CONFIG_FILE="$SCRIPT_DIR/../data/config.json"
 
 # Create or edit config interactively
 create_config() {
-  echo -e "${BLUE} === This is your NewClaw Configuration Setup === ${NC}"
+  echo -e "${BLUE} \n\n\n  === This is your NewClaw Configuration Setup === ${NC}"
   echo -e "${YELLOW} CONFIG_FILE: $CONFIG_FILE === ${NC}"
 
   mkdir -p "$(dirname "$CONFIG_FILE")"
@@ -28,10 +28,10 @@ create_config() {
   NC_TOKEN=""
   NC_SECRET=""
   NC_PATH="/nextcloud-talk"
-  AI_URL="https://api.openai.com/v1"
+  AI_URL=""
   AI_KEY=""
-  AI_MODEL="gpt-4.1-mini"
-  AI_NAME="openai"
+  AI_MODEL=""
+  AI_NAME=""
   AI_OPENCLAW_CLI_AGENT_NAME="main"
 
   # Load existing config if present
@@ -141,13 +141,14 @@ create_config() {
     }'
   )
 
+  echo -e "${GREEN} \n\n\n  Configuration complete! ${NC}"
   echo "$CONFIG" | tee "$CONFIG_FILE"
   echo "Config saved to $CONFIG_FILE"
 }
 
 # Install global dependencies
 install_dependencies() {
-  echo -e "${BLUE} Installing global dependencies... ${NC}"
+  echo -e "${BLUE} \n\n\n Installing global dependencies... ${NC}"
   npm install -g pm2
   npm install
   echo -e "${GREEN} Dependencies installed! ${NC}"
@@ -157,7 +158,7 @@ install_dependencies() {
 # Prompt to restart server
 # ----------------------
 prompt_restart() {
-  read -p "Do you want to restart the NewClaw server now? [y/N]: " REPLY
+  read -p " \n\n\n Do you want to restart the NewClaw server now? [y/N]: " REPLY
   if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     RESTART_SCRIPT="$SCRIPT_DIR/newclaw-restart.sh"
     if [ -f "$RESTART_SCRIPT" ]; then
@@ -172,9 +173,9 @@ prompt_restart() {
 
 
 # Main
-echo -e "${BLUE} Starting NewClaw setup... ${NC}"
+echo -e "${BLUE} Starting NewClaw Onboarding... ${NC}"
 create_config
 install_dependencies
 prompt_restart
-echo -e "${GREEN} Setup complete! ${NC}"
+echo -e "${GREEN} \n\n\n  Onboarding complete! ${NC}"
 echo -e "${YELLOW} Remember to expose 127.0.0.1:${LOCAL_PORT}/${NC_PATH} to be reachable externally. Use a reverse proxy (NGINX, Caddy ...) ${NC}"
