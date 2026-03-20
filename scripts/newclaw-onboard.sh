@@ -23,7 +23,7 @@ NC_PATH=""
 
 # Create or edit config interactively
 create_config() {
-  echo -e "${BLUE} \n\n\n  === This is your NewClaw Configuration Setup === ${NC}"
+  echo -e "${BLUE} \n\n\n Configuration Setup ${NC}"
   echo -e "${YELLOW} CONFIG_FILE: $CONFIG_FILE === ${NC}"
 
   mkdir -p "$(dirname "$CONFIG_FILE")"
@@ -164,7 +164,8 @@ install_dependencies() {
 # Prompt to restart server
 # ----------------------
 prompt_restart() {
-  read -p " \n\n\n Do you want to restart the NewClaw server now? [y/N]: " REPLY
+  echo -e "${GREEN} \n\n\n  Onboarding is complete! ${NC}"
+  read -p "Do you want to restart the NewClaw server now? [y/N]: " REPLY
   if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     RESTART_SCRIPT="$SCRIPT_DIR/newclaw-restart.sh"
     if [ -f "$RESTART_SCRIPT" ]; then
@@ -179,9 +180,22 @@ prompt_restart() {
 
 
 # Main
-echo -e "${BLUE} Starting NewClaw Onboarding... ${NC}"
+echo -e "${CYAN}"
+cat << "EOF"
+ _   _                 _____ _               
+| \ | |               / ____| |              
+|  \| | _____      __| |    | | __ ___      __
+| . ` |/ _ \ \ /\ / /| |    | |/ _` \ \ /\ / /
+| |\  |  __/\ V  V / | |____| | (_| |\ V  V / 
+|_| \_|\___| \_/\_/   \_____|_|\__,_| \_/\_/  
+EOF
+echo -e "${NC}"
 create_config
 install_dependencies
 prompt_restart
-echo -e "${GREEN} \n\n\n  Onboarding complete! ${NC}"
+echo -e "${GREEN}"
+echo "=================================="
+echo "    NEWCLAW ONBOARDING COMPLETE   "
+echo "=================================="
+echo -e "${NC}
 echo -e "${YELLOW} Remember to expose 127.0.0.1:${LOCAL_PORT}/${NC_PATH} to be reachable externally. Use a reverse proxy (NGINX, Caddy ...) ${NC}"
