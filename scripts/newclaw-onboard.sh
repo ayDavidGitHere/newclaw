@@ -147,9 +147,10 @@ create_config() {
     }'
   )
 
-  echo -e "${GREEN} \n\n\n  Configuration complete! ${NC}"
+  echo -e "${GREEN} Configuration complete and saved to $CONFIG_FILE ${NC}"
+
+  echo -e "${BLUE} \n\n\n  Configuration Content at $CONFIG_FILE! ${NC}"
   echo "$CONFIG" | tee "$CONFIG_FILE"
-  echo "Config saved to $CONFIG_FILE"
 }
 
 # Install global dependencies
@@ -164,7 +165,7 @@ install_dependencies() {
 # Prompt to restart server
 # ----------------------
 prompt_restart() {
-  echo -e "${GREEN} \n\n\n  Onboarding is complete! ${NC}"
+  echo -e "${BLUE} \n\n\n  Prompting to restart NewClaw server... ${NC}"
   read -p "Do you want to restart the NewClaw server now? [y/N]: " REPLY
   if [[ "$REPLY" =~ ^[Yy]$ ]]; then
     RESTART_SCRIPT="$SCRIPT_DIR/newclaw-restart.sh"
