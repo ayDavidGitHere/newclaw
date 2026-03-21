@@ -14,15 +14,15 @@
 
 At onboarding, you will provide:
 
-`LOCAL_PORT` is the port which this program serves on. You must forward this port to be reachable from the internet (your nextcloud server).
-Example: forward 127.0.0.1:3000 to <my-webhook-domain.com>:80
+`LOCAL_PORT` is the port which this program serves on. You must forward this port to be reachable from the internet. So that your nextcloud server can reach it.
+Example: forward `127.0.0.1:3000` to `<my-webhook-domain.com>:80`
 You can do this in NGINX.
 
-`Nextcloud BASEURL` is the base URL of your nextcloud instance/server where bot is installed, e.g. <my-nextcloud-domain.com>
+`Nextcloud BASEURL` is the base URL of your nextcloud instance/server where bot is installed, e.g. `<my-nextcloud-domain.com>`
 
 `Nextcloud SECRET` is the webhook secret (set when installing the bot in nextcloud). You can also find it in the config file if you have already onboarded once.
 
-`Nextcloud PATH` is the path part of the webhook URL, e.g. /nextcloud-talk, so the full webhook URL (set when installing the bot in nextcloud server) would be <my-webhook-domain.com>/nextcloud-talk
+`Nextcloud PATH` is the path part of the webhook URL, e.g. `/nextcloud-talk`, so the full webhook URL (set when installing the bot in nextcloud server) would be `<my-webhook-domain.com>/nextcloud-talk`
 
 `AI URL, AI KEY, AI MODEL` are the API URL, key and model for the main AI provider you want to use. You do not need this if you choose "openclawcli" as `AI NAME`
 
