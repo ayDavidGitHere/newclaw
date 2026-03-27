@@ -13,7 +13,7 @@ const aitoolHandler = require("./aitool.handler.js");
 
 
 // routes
-async function handleNexcloudTalkWebhook(req, res, next) {
+async function handleNextcloudTalkWebhook(req, res, next) {
     try {
         console.log("/nextcloud-talk hit");
 
@@ -78,8 +78,10 @@ async function handleNexcloudTalkWebhook(req, res, next) {
 
 // ---- Webhook handler ----
 config.nextcloud_talk.webhookPath = config.nextcloud_talk.webhookPath || "/set-a-webhook-path-in-config";
+
 app.use(express.json({
     type: "*/*",
+    limit: "4mb",
     verify: (req, res, buf) => {
         // Check if the request is for Nextcloud Talk webhook path
         if (req.originalUrl.startsWith(config.nextcloud_talk.webhookPath)) {
@@ -87,8 +89,13 @@ app.use(express.json({
         }
     }
 }));
+
 app.post(config.nextcloud_talk.webhookPath, async (req, res, next) => {
-    await handleNexcloudTalkWebhook(req, res, next)
+  try {
+    await handleNextcloudTalkWebhook(req, res, next);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.get("/health", (req, res) => {
@@ -97,6 +104,16 @@ app.get("/health", (req, res) => {
 
 app.get("/", (req, res) => {
     res.send("Nextcloud Newclaw Agent is running");
+});
+
+app.use((err, req, res, next) => {
+  if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+    console.error('Bad JSON syntax:', err.message);
+    return res.status(400).json({ message: 'Invalid JSON format' });
+  }
+
+  console.error("Unhandled error:", err);
+  res.status(500).json({ message: "Internal server error" });
 });
 
 // ---- Start server ----
