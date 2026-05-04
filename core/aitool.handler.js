@@ -1,4 +1,5 @@
 const { spawn } = require("child_process");
+const path = require("path");
 
 const OpenAIClient = require("./modelsClient/OpenAIClient.js");
 const OllamaCloudClient = require("./modelsClient/OllamaCloudClient.js");
@@ -34,7 +35,14 @@ async function chatOllamaCloud(input) {
     return reply;
 }
 
-function chatOpenClawCli(input) {
+function chatOpenClawCli(input, conversation_token = null) {
+  let addCronContext = true;
+
+  if (addCronContext && conversation_token) {
+    let clijs_dir = `${path.resolve(__dirname)}/`;
+    input += `\n If message needs cron, at cron time: call this cli command to deliver response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>" to send message to nextcloud talk room.`;
+  }
+
   return new Promise((resolve, reject) => {
     const proc = spawn("openclaw", [
       "agent",
@@ -70,7 +78,7 @@ function chatOpenClawCli(input) {
 const aitool = {
   autoSave: true,
 
-  async runGatewayChatWithTools(input) {
+  async runGatewayChatWithTools(input, conversation_token = null) {
     let reply = ``;
 
     try {
@@ -79,7 +87,7 @@ const aitool = {
         } else if (config.main_ai_provider && config.main_ai_provider.name === "ollamacloud") {
             reply = await chatOllamaCloud(input);
         } else if (config.main_ai_provider && config.main_ai_provider.name === "openclawcli") {
-            reply = await chatOpenClawCli(input);
+            reply = await chatOpenClawCli(input, conversation_token);
             console.log("Received from OpenClaw CLI:", reply ? reply.slice(0, 10) : reply);
         }
     } catch (err) {

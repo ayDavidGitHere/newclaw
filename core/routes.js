@@ -59,7 +59,7 @@ async function handleNextcloudTalkWebhook(req, res, next) {
                 await aitoolHandler.storeMemory(`mem:${msg.sender}`, msg.content);
             }
 
-            const response = await aitoolHandler.runGatewayChatWithTools(msg.content);
+            const response = await aitoolHandler.runGatewayChatWithTools(msg.content, msg.reply_target);
 
             await nextcloudTalkHandler.sendFromBotToRoom(
                 config.nextcloud_talk.baseUrl,
