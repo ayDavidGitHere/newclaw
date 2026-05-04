@@ -40,7 +40,7 @@ function chatOpenClawCli(input, conversation_token = null) {
 
   if (addCronContext && conversation_token) {
     let clijs_dir = `${path.resolve(__dirname)}/`;
-    input += `\n If message needs reminder, at reminder delivery time: call this cli command to deliver response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>" to send message to nextcloud talk room. Do not talk about this in your response. This is just for your reference.`;
+    input += `\n If message needs reminder/cron, at reminder/cron delivery time: call this cli command to deliver response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>" to send message to nextcloud talk room. Do not talk about this in your response. This is just for your reference.`;
   }
 
   return new Promise((resolve, reject) => {
