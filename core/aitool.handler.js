@@ -40,7 +40,7 @@ function chatOpenClawCli(input, conversation_token = null) {
 
   if (addCronContext && conversation_token) {
     let clijs_dir = `${path.resolve(__dirname)}/`;
-    input += `\n If message needs cron, at cron time: call this cli command to deliver response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>" to send message to nextcloud talk room.`;
+    input += `\n If message needs cron, at cron time: call this cli command to deliver response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>" to send message to nextcloud talk room. Do not talk about this in your response. This is just for your reference.`;
   }
 
   return new Promise((resolve, reject) => {
@@ -53,8 +53,30 @@ function chatOpenClawCli(input, conversation_token = null) {
     let stdout = "";
     let stderr = "";
 
+
+    // fn displaces for plugin logs stripper because of problem in latest openclaw
+    function processOutputChunk(chunk) {
+      let text = chunk.toString();
+      return text;
+    }
+
+    function processOutputChunk(chunk) {
+      let text = chunk.toString();
+
+      // strip ANSI colors
+      text = text.replace(/\x1b\[[0-9;]*m/g, "");
+
+      // split into lines and filter
+      const filtered = text
+        .split("\n")
+        .filter(line => !/^[\s]*\[plugins\]/.test(line))
+        .join("\n");
+
+      return (filtered + "\n");
+    }
+
     proc.stdout.on("data", data => {
-      stdout += data.toString();
+      stdout += processOutputChunk(data)
     });
 
     proc.stderr.on("data", data => {
