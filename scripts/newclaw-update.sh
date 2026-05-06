@@ -45,11 +45,6 @@ if ! command -v git >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! command -v npm >/dev/null 2>&1; then
-  echo -e "${RED} npm is required to update NewClaw ${NC}"
-  exit 1
-fi
-
 if [ ! -d "$REPO_DIR/.git" ]; then
   echo -e "${RED} This NewClaw installation is not a git checkout: $REPO_DIR ${NC}"
   exit 1
@@ -65,9 +60,6 @@ BRANCH="$(git -C "$REPO_DIR" rev-parse --abbrev-ref HEAD)"
 
 echo -e "${BLUE} Updating NewClaw in $REPO_DIR on branch $BRANCH ... ${NC}"
 git -C "$REPO_DIR" pull --ff-only origin "$BRANCH"
-
-echo -e "${BLUE} Installing dependencies... ${NC}"
-npm install --prefix "$REPO_DIR"
 
 echo -e "${GREEN} Update complete! ${NC}"
 prompt_restart

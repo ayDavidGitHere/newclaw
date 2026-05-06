@@ -19,7 +19,6 @@ To update an existing NewClaw installation:
 This command:
 
 - pulls the latest code from the current git branch using fast-forward only
-- runs `npm install`
 - prompts you to restart the NewClaw service
 
 Requirements:
