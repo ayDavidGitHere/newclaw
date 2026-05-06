@@ -97,7 +97,7 @@ Latest version of openclaw demands approval to run cron jobs / reminders in the 
 
 ### Set openclaw approvals to allow cron jobs
 ```bash
-openclaw approvals set --stdin <<'EOF'
+openclaw approvals set  --gateway --stdin <<'EOF'
 {
     version: 1,
     defaults: {
