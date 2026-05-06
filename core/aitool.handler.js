@@ -36,12 +36,18 @@ async function chatOllamaCloud(input) {
 }
 
 function chatOpenClawCli(input, conversation_token = null) {
-  let addCronContext = true;
+  let contextType = "config-injection"; // node | config-injection
 
-  if (addCronContext && conversation_token) {
-    let clijs_dir = `${path.resolve(__dirname)}/`;
-    console.log("node cli reference for cron context:", `node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>`);
-    input += `\n If message needs reminder/cron, MANDATORY DELIVERY: Do not use standard delivery. Use the following shell command to send the final response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'" to send the response. Do not talk about this in your response. This is just for your reference. [nweclaw]`;
+  if (conversation_token) {
+    if (contextType === "node") {
+      let clijs_dir = `${path.resolve(__dirname)}/`;
+      console.log("node cli reference for cron context:", `node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>`);
+      input += `\n If message needs reminder/cron, MANDATORY DELIVERY: Do not use standard delivery. Use the following shell command to send the final response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'" to send the response. This is just for your reference. Do not talk about this in your response except in event of an error. [newclaw]`;
+    }
+
+    if (contextType === "config-injection") {
+      input += `\n If message needs reminder/cron, DELIVERY: Delivery the final response with the nextcloud plugin using these configs [conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]. This is just for your reference. Do not talk about this in your response except in event of an error. [newclaw]`;
+    }
   }
 
   return new Promise((resolve, reject) => {

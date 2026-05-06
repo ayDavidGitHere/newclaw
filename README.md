@@ -101,9 +101,9 @@ openclaw approvals set  --gateway --stdin <<'EOF'
 {
     version: 1,
     defaults: {
-    security: "full",
-    ask: "off",
-    askFallback: "full"
+        security: "full",
+        ask: "off",
+        askFallback: "full"
     }
 }
 EOF
