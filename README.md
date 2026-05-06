@@ -10,6 +10,26 @@
 
 ``` newclaw onboard ``` 
 
+# UPDATING
+
+To update an existing NewClaw installation:
+
+``` newclaw update ```
+
+This command:
+
+- pulls the latest code from the current git branch using fast-forward only
+- runs `npm install`
+- prompts you to restart the NewClaw service
+
+Requirements:
+
+- your NewClaw folder must be a git checkout
+- the working tree must be clean with no uncommitted changes
+- `git` and `npm` must be installed on the machine
+
+If you have local changes, commit, stash, or discard them before running `newclaw update`.
+
 # ONBOARDING
 
 At onboarding, you will provide:
@@ -59,3 +79,29 @@ List bots again to get the `bot-id`:
 Add bot to a nextcloud room :  
 ```php occ talk:bot:setup <bot-id> <conversation-token>```  
 `conversation-token` typically can be obtained from the last part of the URL when you open the nextcloud talk room in browser, e.g. if the URL is `https://my-nextcloud-domain.com/chat/abcdefg`, then the conversation token is `abcdefg`.
+
+
+
+# CRON JOB SUPPORT
+
+Latest version of openclaw demands approval to run cron jobs / reminders in the cli (This programs demands on openclaw cli). To create a one-time approval for cron jobs. Run these in the cli:  
+
+```
+# Set openclaw approvals to allow cron jobs
+openclaw approvals set --gateway --stdin <<'EOF'
+{
+  "version": 1,
+  "defaults": {
+    "security": "full",
+    "ask": "off",
+    "askFallback": "full"
+  }
+}
+EOF
+
+# List devices and get the device_id
+openclaw devices list
+
+# Approve the device using the device_id
+openclaw devices approve <device_id>
+```

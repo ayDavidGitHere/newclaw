@@ -15,6 +15,7 @@ SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 # Sub-commands
 ONBOARD_SCRIPT="$SCRIPT_DIR/newclaw-onboard.sh"
 RESTART_SCRIPT="$SCRIPT_DIR/newclaw-restart.sh"
+UPDATE_SCRIPT="$SCRIPT_DIR/newclaw-update.sh"
 
 show_help() {
   echo -e "${BLUE} Usage: newclaw <command> ${NC}"
@@ -22,6 +23,7 @@ show_help() {
   echo "Commands:"
   echo "  onboard   Run onboarding setup"
   echo "  restart   Restart the service (PM2)"
+  echo "  update    Update NewClaw from git and install dependencies"
   echo "  help      Show this help message"
 }
 
@@ -48,6 +50,15 @@ case "$CMD" in
       bash "$RESTART_SCRIPT"
     else
       echo -e "${RED} Error: newclaw-restart.sh not found ${NC}"
+      exit 1
+    fi
+    ;;
+
+  update)
+    if [ -f "$UPDATE_SCRIPT" ]; then
+      bash "$UPDATE_SCRIPT"
+    else
+      echo -e "${RED} Error: newclaw-update.sh not found ${NC}"
       exit 1
     fi
     ;;
