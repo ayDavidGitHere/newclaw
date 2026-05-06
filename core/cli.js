@@ -18,6 +18,7 @@ try {
     // node ~/core/cli.js send-to-room ${conversation_token} <message>"
     const args = process.argv.slice(2);
     if (args.length >= 2 && args[0] === "send-to-room") {
+        console.log("CLI send-to-room args:", args);
         const conversation_token = args[1];
         const message = args.slice(2).join(" ");
         sendToRoom(conversation_token, message)
