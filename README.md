@@ -33,25 +33,28 @@ If you have local changes, commit, stash, or discard them before running `newcla
 
 At onboarding, you will provide:
 
+## Config values:  
+
 `LOCAL_PORT` is the port which this program serves on. You must forward this port to be reachable from the internet. So that your nextcloud server can reach it.
-Example: forward `127.0.0.1:3000` to `<my-webhook-domain.com>:80`
+Example: forward `127.0.0.1:3000` to `<newclaw-webhook-domain.com>:80`
 You can do this in NGINX.
 
 `Nextcloud BASEURL` is the base URL of your nextcloud instance/server where bot is installed, e.g. `<my-nextcloud-domain.com>`
 
 `Nextcloud SECRET` is the webhook secret (set when installing the bot in nextcloud). You can also find it in the config file if you have already onboarded once.
 
-`Nextcloud PATH` is the path part of the webhook URL, e.g. `/nextcloud-talk`, so the full webhook URL (set when installing the bot in nextcloud server) would be `<my-webhook-domain.com>/nextcloud-talk`
+`Nextcloud PATH` is the path part of the webhook URL, e.g. `/nextcloud-talk`, so the full webhook URL (set when installing the bot in nextcloud server) would be `<newclaw-webhook-domain.com>/nextcloud-talk`
 
-`AI URL, AI KEY, AI MODEL` are the API URL, key and model for the main AI provider you want to use. You do not need this if you choose "openclawcli" as `AI NAME`
+`AI NAME` is the ai provider for the webhook. The available options are "openclawcli", "ollamacloud" and "openaicloud". 
 
-`AI NAME` availabe options are "openclawcli", "ollamacloud" and "openaicloud". 
-
-If you choose "openclawcli", you must have OpenClaw CLI installed and configured on the same machine.
+If you choose `"openclawcli"`, you must have OpenClaw CLI installed and configured on the same machine.
 You must also set the `AI OPENCLAW_CLI_AGENT_NAME`.
 
 `AI OPENCLAW_CLI_AGENT_NAME` is usually "main", check `openclaw agents list` to confirm the agent name you want to use.
 
+`AI URL, AI KEY, AI MODEL` are the API URL, key and model for the main AI provider you want to use. You will not be prompted for this if you choose "openclawcli" as `AI NAME`  
+
+## Note: 
 You can change any of these configs later by editing the config file directly or running `newclaw onboard` again.
 
 config file is located at `~/.newclaw/data/config.json`
@@ -67,10 +70,10 @@ List existing bots:
 ```php occ talk:bot:list```  
 
 Create bot and get the webhook secret:  
-```php occ talk:bot:install <bot-name> <40-or-more-char-webhook-secret> <my-webhook-domain.com>/<my-webhook-path> <description>```  
+```php occ talk:bot:install <bot-name> <40-or-more-char-webhook-secret> <newclaw-webhook-domain.com>/<newclaw-webhook-path> <description>```  
 
 Example:  
-```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://my-webhook-domain.com/nextcloud-talk "bot for newclaw agent"```  
+```php occ talk:bot:install newclaw-agent "XNn4-54581-b125b9-8m2v2-45n-67M-BYc279-d0f25" http://newclaw-webhook-domain.com/nextcloud-talk "bot for newclaw agent"```  
 
 List bots again to get the `bot-id`:  
 ```php occ talk:bot:list```  

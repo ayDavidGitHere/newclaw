@@ -41,7 +41,7 @@ function chatOpenClawCli(input, conversation_token = null) {
   if (addCronContext && conversation_token) {
     let clijs_dir = `${path.resolve(__dirname)}/`;
     console.log("node cli reference for cron context:", `node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>`);
-    input += `\n If message needs reminder/cron, Delivery: exec "node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>" to send the response. Do not talk about this in your response. This is just for your reference. [nweclaw]`;
+    input += `\n If message needs reminder/cron, MANDATORY DELIVERY: Do not use standard delivery. Use the following shell command to send the final response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'" to send the response. Do not talk about this in your response. This is just for your reference. [nweclaw]`;
   }
 
   return new Promise((resolve, reject) => {
