@@ -55,6 +55,7 @@ create_config() {
       AI_URL=$(jq -r '.main_ai_provider.apiUrl // "https://api.openai.com/v1"' "$CONFIG_FILE")
       AI_KEY=$(jq -r '.main_ai_provider.apiKey // ""' "$CONFIG_FILE")
       AI_MODEL=$(jq -r '.main_ai_provider.modelName // "gpt-4.1-mini"' "$CONFIG_FILE")
+      echo "Existing configuration loaded. Press ENTER to keep current values or type new ones."
     else
       echo "Warning: jq not installed, skipping config preload"
     fi
@@ -63,6 +64,9 @@ create_config() {
   # ----------------------
   # Prompts with defaults
   # ----------------------
+
+  echo ""
+  echo -e "${YELLOW} Press ENTER to keep current value in brackets. ${NC}"
 
   read -p "Local server port [$LOCAL_PORT]: " input
   LOCAL_PORT="${input:-$LOCAL_PORT}"
@@ -157,7 +161,7 @@ create_config() {
 install_dependencies() {
   echo -e "${BLUE} \n\n\n Installing global dependencies... ${NC}"
   npm install -g pm2
-  npm install
+  npm install "$SCRIPT_DIR/.."  # Install NewClaw dependencies
   echo -e "${GREEN} Dependencies installed! ${NC}"
 }
 
