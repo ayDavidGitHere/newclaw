@@ -93,10 +93,10 @@ Add bot to a nextcloud room :
 
 # CRON JOB SUPPORT
 
-Latest version of openclaw demands approval to run cron jobs / reminders in the cli (This programs demands on openclaw cli). To create a one-time approval for cron jobs. Run these in the cli:  
+Latest version of openclaw demands approval to run cron jobs / reminders in the cli (This programs depends on openclaw cli). To create a one-time approval for cron jobs. Run these in the cli:  
 
+### Set openclaw approvals to allow cron jobs
 ```
-# Set openclaw approvals to allow cron jobs
 openclaw approvals set --gateway --stdin <<'EOF'
 {
   "version": 1,
@@ -107,10 +107,14 @@ openclaw approvals set --gateway --stdin <<'EOF'
   }
 }
 EOF
+```
 
-# List devices and get the device_id
+### List devices and get the device_id
+```
 openclaw devices list
+```
 
-# Approve the device using the device_id
+### Approve the device using the device_id
+```
 openclaw devices approve <device_id>
 ```

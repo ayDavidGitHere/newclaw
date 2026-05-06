@@ -197,7 +197,6 @@ EOF
 echo -e "${NC}"
 create_config
 install_dependencies
-prompt_restart
 echo -e "${GREEN}"
 echo "=================================="
 echo "    NEWCLAW ONBOARDING COMPLETE   "
@@ -205,3 +204,4 @@ echo "=================================="
 echo -e "${NC}"
 echo -e "${YELLOW} Remember to expose 127.0.0.1:${LOCAL_PORT}/${NC_PATH} to be reachable externally. Use a reverse proxy (NGINX, Caddy ...) ${NC}"
 echo -e "${YELLOW} You can also check out how to create nextcloud bot at [https://github.com/ayDavidGitHere/newclaw#creating-nextcloud-bot] ${NC}"
+prompt_restart
