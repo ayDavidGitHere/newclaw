@@ -93,6 +93,12 @@ if ! git -C "$REPO_DIR" pull --ff-only origin "$BRANCH" >/dev/null 2>"$TMP_GIT_O
   prompt_override_local
 fi
 
+# Ensure the main script is executable (in case of new files)
+BIN_PATH="$SCRIPT_DIR/newclaw.sh"
+if [ -f "$BIN_PATH" ]; then
+  chmod +x "$BIN_PATH"
+fi
+
 echo -e "${BLUE} Installing dependencies... ${NC}"
 npm install --prefix "$REPO_DIR"
 
