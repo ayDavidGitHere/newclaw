@@ -85,7 +85,7 @@ create_config() {
   NC_PATH="${input:-$NC_PATH}"
 
   # Prompt for provider
-  echo "Select AI provider (current: $AI_NAME):"
+  echo "Select AI provider (Enter the number corresponding to your choice) [$AI_NAME]:" 
 
   options=("openclawcli" "ollamacloud" "openaicloud")
 
@@ -105,7 +105,7 @@ create_config() {
   if [ "$AI_NAME" = "openclawcli" ]; then
     echo -e "${YELLOW} Be sure OpenClaw CLI is installed and configured on this machine${NC}"
 
-    read -p "OpenClaw agent name [$AI_OPENCLAW_CLI_AGENT_NAME]: " input
+    read -p "OpenClaw agent name. Usually 'main' (use 'openclaw agents list' to see available agents) [$AI_OPENCLAW_CLI_AGENT_NAME]: " input
     AI_OPENCLAW_CLI_AGENT_NAME="${input:-$AI_OPENCLAW_CLI_AGENT_NAME}"
 
   else

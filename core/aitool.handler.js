@@ -42,11 +42,12 @@ function chatOpenClawCli(input, conversation_token = null) {
     if (contextType === "node") {
       let clijs_dir = `${path.resolve(__dirname)}/`;
       console.log("node cli reference for cron context:", `node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>`);
-      input += `\n If message needs reminder/cron, MANDATORY DELIVERY: Do not use standard delivery. Use the following shell command to send the final response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'" to send the response. This is just for your reference. Do not talk about this in your response except in event of an error. [newclaw]`;
+      input += `\n If message needs reminder/cron, MANDATORY DELIVERY: Do not use standard delivery. Use the following shell command to send the final response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'" to send the response. This is just for your reference. Do not talk about this in your response except in event of an error. [hybrid-channel: newclaw]`;
     }
 
     if (contextType === "config-injection") {
-      input += `\n If message needs reminder/cron, DELIVERY: Delivery the final response with the nextcloud plugin using these configs [conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]. This is just for your reference. Do not talk about this in your response except in event of an error. [newclaw]`;
+      console.log("config injection reference for cron context:", `[conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]`);
+      input += `\n If message needs reminder/cron, DELIVERY: Deliver the final response with the openclaw nextcloud plugin using these configs [conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]. This is just for your reference. Do not talk about this in your response except in event of an error/failure. [hybrid-channel: newclaw]`;
     }
   }
 

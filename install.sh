@@ -17,7 +17,11 @@ CMD_NAME="newclaw"
 SCRIPT_PATH="$(cd "$(dirname "$0")" && pwd)/scripts/newclaw.sh"
 
 # Target location
-TARGET="/usr/local/bin/$CMD_NAME"
+if [ -d "/opt/homebrew/bin" ]; then
+  TARGET="/opt/homebrew/bin/$CMD_NAME"
+else
+  TARGET="/usr/local/bin/$CMD_NAME"
+fi
 
 echo -e "${BLUE} Installing $CMD_NAME..."
 
