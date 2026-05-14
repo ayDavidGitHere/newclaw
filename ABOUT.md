@@ -3,18 +3,13 @@
 # Problem 1:
 Program has no way to deliver cron/reminders to chat other than adding custom instructions to openclaw model. This is not ideal but it is the best solution at the moment.
 
-In solution has 2 fixes, 
-Fix 1: Tells model to call newclaw node script but this can fail if appropriate eexec permissions are not set or model refuses or does not trust exec permission.
-Fix 2: Tells model to use existing openclaw nextcloud plugin to deliver messages. This can fail if openclaw nextcloud plugin has not been configured or openclaw updates its nextcloud plugin with breaking errors/changes.
+A hybrid delivery mechanism was added through prompt injection. When the model determines a reminder, cron, or delayed/background response is needed, it is instructed to:
 
+First attempt delivery using the OpenClaw Nextcloud plugin via injected conversation credentials (conversation-token, webhook-secret, base-url).
+If plugin delivery fails, fallback to a local Node.js CLI command:
+node <clijs_dir>/cli.js send-to-room <conversation_token> '<message>'
+Log any delivery failure details into:
+../data/openclaw-resp-error.log
+If both delivery methods fail, immediately respond normally in-chat and mention the delivery failure.
 
-Summary:
-- This newclaw version uses Fix 2 but keeps Fix 1 in case of a decision to switch to that in the future. 
-- Fix 2 requires that openclaw nextcloud plugin must be installed and enabled.
-
-
-# Changes on test machine  
-
-- I ran "newclaw onboard" and "newclaw restart" to recheck valid configs.
-- I enabled openclaw nextcloud-talk plugin with random credentials (credentials from here do not matter for newclaw delivery). To see why I had to enable this nextcloud-talk plugin, please check newclaw ABOUT.md at ("https://github.com/ayDavidGitHere/newclaw/blob/main/ABOUT.md")
-- I updated newclaw (latest update contain better instructions for onboarding configs at 'newclaw onboard')
+This creates a best-effort asynchronous delivery system without requiring native cron/reminder support inside the core program.

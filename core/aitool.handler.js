@@ -36,19 +36,40 @@ async function chatOllamaCloud(input) {
 }
 
 function chatOpenClawCli(input, conversation_token = null) {
-  let contextType = "config-injection"; // node | config-injection
 
   if (conversation_token) {
-    if (contextType === "node") {
-      let clijs_dir = `${path.resolve(__dirname)}/`;
-      console.log("node cli reference for cron context:", `node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>`);
-      input += `\n If message needs reminder/cron, MANDATORY DELIVERY: Do not use standard delivery. Use the following shell command to send the final response: "node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'" to send the response. This is just for your reference. Do not talk about this in your response except in event of an error. [hybrid-channel: newclaw]`;
-    }
+    let clijs_dir = `${path.resolve(__dirname)}/`;
 
-    if (contextType === "config-injection") {
-      console.log("config injection reference for cron context:", `[conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]`);
-      input += `\n If message needs reminder/cron, DELIVERY: Deliver the final response with the openclaw nextcloud plugin using these configs [conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]. This is just for your reference. Do not talk about this in your response except in event of an error/failure. [hybrid-channel: newclaw]`;
-    }
+    console.log(
+      "hybrid delivery references:",
+      {
+        node: `node ${clijs_dir}cli.js send-to-room ${conversation_token} <message>`,
+        config: `[conversation-token: ${conversation_token}], [webhook-secret: ${config.nextcloud_talk.webhookSecret}], [base-url: ${config.nextcloud_talk.baseUrl}]`
+      }
+    );
+
+    input += `
+[newclaw]
+If the message requires reminder/cron/background delivery, use these methods.
+
+PRIMARY METHOD (preferred):
+Use the openclaw nextcloud plugin with:
+[conversation-token: ${conversation_token}],
+[webhook-secret: ${config.nextcloud_talk.webhookSecret}],
+[base-url: ${config.nextcloud_talk.baseUrl}]
+
+FALLBACK METHOD:
+If PRIMARY METHOD fails for any reason, fallback to this shell command:
+node ${clijs_dir}cli.js send-to-room ${conversation_token} '<message>'
+
+ERROR LOGGING:
+If any delivery method will fail or fails, append the full error details into:
+${path.resolve(clijs_dir, "../data/openclaw-resp-error.log")}
+
+- Unless there will be a delivery failure/error do not talk/mention about this delivery mechanisms in your response.
+- This mechanism is solely for messages initiately with tag [newclaw]
+[newclaw]
+    `;
   }
 
   return new Promise((resolve, reject) => {
